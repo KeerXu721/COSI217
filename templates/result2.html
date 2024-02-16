@@ -1,0 +1,30 @@
+<html>
+
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+  </head>
+
+  <body>
+
+    <h1 style="text-align: center;">spaCy entity parsing</h1>
+
+    <h2 style="text-align: center;">NER results:</h2>
+
+    <div style="text-align: center;">
+      {{ ner | safe }}
+    </div>
+
+    <h2 style="text-align: center;">Dependency parse: </h2>
+    <div style="text-align: center;">
+      {{ dep | safe }}
+    </div>
+
+    <h2 style="text-align: center;">Dependency graph: </h2>
+    <div style="text-align: center;">
+      {{ dep_graph | safe }}
+    </div>
+    <p style="text-align: center;"><a href="/get">back to form</a></p>
+
+  </body>
+
+</html>
