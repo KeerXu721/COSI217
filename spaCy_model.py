@@ -67,6 +67,12 @@ class DepClass:
         dep_graph = dep_graph.replace('height: initial', 'height: 50%')
         return dep_graph
 
+    def get_dep_parse(self):
+        dependency_parse = []
+        for token in self.doc:
+            dependency_parse.append((token.text, token.dep_, token.head.text))
+        return dependency_parse
+
 
 if __name__ == '__main__':
     example = "Here is just a simple example to show the ner model results: " \

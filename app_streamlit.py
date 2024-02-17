@@ -1,6 +1,7 @@
 from collections import Counter
 from operator import itemgetter
 
+import graphviz
 import streamlit as st
 import pandas as pd
 import altair as alt
@@ -47,8 +48,8 @@ def dep():
 
     selection = st.radio("Select Display Option", ("Table", "Graph"))
 
-    dep = spaCy_model.DepClass(example)
-    dep_l = dep.process_data()
+    dep = spaCy_model.DepClass(text)
+    dep_l = dep.get_dep_parse()
 
     if selection == "Table":
         column_names = ['Root Text', 'Root Dependency', 'Head Text']
@@ -57,18 +58,12 @@ def dep():
         st.table(df)
 
     elif selection == "Graph":
-        dep_graph = dep.dep_graph()
-        css_style = """
-        <style>
-        .graph-container {
-            display: inline-block;
-            vertical-align: top; /* Adjust as needed */
-            margin-right: auto; /* Move to leftmost position */
-        }
-        </style>
-        """
-        st.markdown(css_style, unsafe_allow_html=True)
-        st.image(dep_graph, use_column_width=True, output_format="PNG", caption="Dependency Graph")
+        parses = dep.get_dep_parse()
+        graph = graphviz.Digraph()
+        for parse in parses:
+            graph.edge(parse[2], parse[0], label=parse[1])
+
+        st.graphviz_chart(graph)
 
 
 option = st.sidebar.selectbox(
