@@ -20,8 +20,28 @@ pip install spacy
 python -m spacy download en_core_web_sm
 ```
 ### RESTful API with FastAPI 🔗
+To run this section, open a terminal, and run:
+```bash
+uvicorn app_fastapi:app --reload
+```
 
+To access the NER:
+```bash
+curl http:/127.0.0.1:8000
+curl -X POST http://127.0.0.1:8000/ner \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d@input.json
+```
 
+To access the dependency parser:
+```bash
+curl http:/127.0.0.1:8000
+curl -X POST http://127.0.0.1:8000/dep \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d@input.json
+```
 ### Flask webserver 🖥️
 This part is in the app_flask.py file. 
 
@@ -49,6 +69,5 @@ process. In the dependency parsing page, you can choose table or graph to displa
 #### To run this application:
 ```bash
 streamlit run app_streamlit.py
-
 ```
 
